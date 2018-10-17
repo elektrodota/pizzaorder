@@ -37,6 +37,7 @@ dependencies {
     compile('de.codecentric:spring-boot-admin-starter-server')
     compile('org.springframework.session:spring-session-core')
     compile("com.h2database:h2:1.4.191")
+    compile('org.springframework:spring-webmvc:5.0.1.RELEASE')
     runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')

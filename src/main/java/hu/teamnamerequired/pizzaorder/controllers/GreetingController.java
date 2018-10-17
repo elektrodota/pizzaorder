@@ -1,32 +1,38 @@
 package hu.teamnamerequired.pizzaorder.controllers;
 
 import hu.teamnamerequired.pizzaorder.resources.Greeting;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
+@EnableAutoConfiguration
 public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
+    @RequestMapping(value = "/greeting",method = GET)
+    @ResponseBody
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 
-    @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/welcome**" }, method = GET)
+    @ResponseBody
     public ModelAndView welcomePage() {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Hello World");
         model.addObject("message", "This is welcome page!");
         model.setViewName("hello");
+        model.addObject("greeting","asd");
         return model;
 
     }

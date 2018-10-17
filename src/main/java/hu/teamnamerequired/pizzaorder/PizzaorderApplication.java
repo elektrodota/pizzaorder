@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class PizzaorderApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         SpringApplication.run(PizzaorderApplication.class, args);
     }
 }
