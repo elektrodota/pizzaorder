@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<header> </header>
+	<div th:replace="_Header :: header">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Static header</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="hero-unit">
+			<h1>Test</h1>
+			<p>Welcome to the Spring MVC Quickstart application! Get started
+				quickly by signing up.</p>
+			<p>
+				<a href="/signup" th:href="@{/signup}"
+					class="btn btn-large btn-success">Sign up</a>
+			</p>
+		</div>
+	</div>
+	<footer> </footer>
+	<div th:replace="_Footer :: footer">&copy; 2016 The Static
+		Templates</div>
+</body>
+</html>
