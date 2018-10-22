@@ -1,5 +1,8 @@
 package hu.teamnamerequired.pizzaorder.configuration;
 
+import hu.teamnamerequired.pizzaorder.security.AuthFailureHandler;
+import hu.teamnamerequired.pizzaorder.security.CustomAccessDeniedHandler;
+import hu.teamnamerequired.pizzaorder.security.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +20,21 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
+    public WebSecurityConfig() {
+        super();
+    }
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        // @formatter:off
         auth.inMemoryAuthentication()
-          .withUser("admin").password(passwordEncoder().encode("admin")).roles("USER");
+                .withUser("user1").password(passwordEncoder().encode("1234")).roles("USER")
+                .and()
+                .withUser("user2").password(passwordEncoder().encode("12345")).roles("USER")
+                .and()
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+        // @formatter:on
     }
 
     @Override
@@ -35,12 +48,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .loginPage("/Login.html")
           .defaultSuccessUrl("/Home.html")
           .failureUrl("/Login.html?error=true")
+          .failureHandler(authenticationFailureHandler())
           .and()
-          .logout().logoutSuccessUrl("/Login.html");
+          .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Login.html").logoutSuccessHandler(logoutSuccessHandler()).and()
+          .exceptionHandling().accessDeniedPage("/accessDenied").accessDeniedHandler(accessDeniedHandler());
     }
  
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CustomLogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
+    }
+
+    @Bean
+    public CustomAccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public AuthFailureHandler authenticationFailureHandler() {
+        return new AuthFailureHandler();
     }
 }
