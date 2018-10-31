@@ -18,7 +18,7 @@ public class HomeController {
 //        return new Greeting(counter.incrementAndGet(), String.format(template, name));
 //    }
 
-    @RequestMapping(value = { "/", "/welcome**" }, method = GET)
+    @RequestMapping(value =  {"/","/welcome"} , method = GET)
     @ResponseBody
     public ModelAndView welcomePage() {
 
