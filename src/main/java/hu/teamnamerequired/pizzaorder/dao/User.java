@@ -21,8 +21,7 @@ public class User {
     private String password;
     @Getter
     @Setter
-    @OneToOne
-    private Role role;
+    private String alapCim;
 
 
 }

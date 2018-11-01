@@ -1,21 +1,25 @@
 package hu.teamnamerequired.pizzaorder.dao;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
-@NoArgsConstructor
-public class Role {
+public class Pizza {
     @Id
     @Getter
     @Setter
-    private Long id;
+    Long id;
     @Getter
     @Setter
-    private String roleName;
-
+    String leiras;
+    @Getter
+    @Setter
+    int kisAr;
+    @Getter
+    @Setter
+    int kozepesAr;
+    @Getter
+    @Setter
+    int nagyAr;
 }
