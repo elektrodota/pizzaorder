@@ -45,13 +45,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .anyRequest().authenticated()
           .and()
           .formLogin()
-          .loginPage("/Login.html")
           .defaultSuccessUrl("/welcome")
           .failureUrl("/Login.html?error=true")
           .failureHandler(authenticationFailureHandler())
           .and()
           .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Login.html").logoutSuccessHandler(logoutSuccessHandler()).and()
           .exceptionHandling().accessDeniedPage("/accessDenied").accessDeniedHandler(accessDeniedHandler());
+
+
     }
  
     @Bean

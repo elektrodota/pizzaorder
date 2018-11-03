@@ -1,13 +1,14 @@
 package hu.teamnamerequired.pizzaorder.dao;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.LocalDate;
-
+@Entity
+@NoArgsConstructor
 public class Rendeles {
     @Id
     @Getter
@@ -15,11 +16,9 @@ public class Rendeles {
     Long id;
     @Getter
     @Setter
-    @OneToOne
     String email;
     @Getter
     @Setter
-    @OneToMany
     Long pizzaId;
     @Getter
     @Setter
