@@ -12,15 +12,16 @@ import org.springframework.stereotype.Service;
 public class RendelesServiceImpl implements RendelesService {
     @Autowired
     RendelesRepository rendelesRepo;
+
     // TODO: 2018. 11. 01. Rendelés hozzáadása
     @Override
-    public Rendeles createUser(Rendeles rendeles) {
+    public Rendeles createRendeles(Rendeles rendeles) {
         return null;
     }
 
     // TODO: 2018. 11. 01. Rendelés szerkesztése
     @Override
-    public Rendeles updateUser(Rendeles rendeles) {
+    public Rendeles updateRendeles(Rendeles rendeles) {
         return null;
     }
 

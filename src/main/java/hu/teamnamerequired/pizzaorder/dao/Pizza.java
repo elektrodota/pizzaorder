@@ -1,5 +1,6 @@
 package hu.teamnamerequired.pizzaorder.dao;
 
+import hu.teamnamerequired.pizzaorder.resources.PizzaSize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,17 +13,14 @@ public class Pizza {
     @Id
     @Getter
     @Setter
-    Long id;
+    Long Id;
     @Getter
     @Setter
-    String leiras;
+    String Description;
     @Getter
     @Setter
-    int kisAr;
+    PizzaSize Size;
     @Getter
     @Setter
-    int kozepesAr;
-    @Getter
-    @Setter
-    int nagyAr;
+    int Price;
 }

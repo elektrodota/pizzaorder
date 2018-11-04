@@ -14,13 +14,11 @@ public class User {
     @Id
     @Getter
     @Setter
-    private String email;
+    private String Email;
     @Getter
     @Setter
-    private String password;
+    private String Password;
     @Getter
     @Setter
-    private String alapCim;
-
-
+    private String Address;
 }

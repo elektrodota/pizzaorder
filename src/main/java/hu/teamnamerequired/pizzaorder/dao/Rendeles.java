@@ -1,36 +1,52 @@
 package hu.teamnamerequired.pizzaorder.dao;
 
+import hu.teamnamerequired.pizzaorder.resources.RendelesAllapot;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Collection;
+
 @Entity
 @NoArgsConstructor
 public class Rendeles {
     @Id
     @Getter
     @Setter
-    Long id;
+    Long Id;
     @Getter
     @Setter
-    String email;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class)
+    @JoinColumn(name="user_email")
+    User UserThatOrderedThePizza;
     @Getter
     @Setter
-    Long pizzaId;
+    private String Address;
     @Getter
     @Setter
-    int meret;
+    @ElementCollection
+    Collection<Pizza> Pizzas;
     @Getter
     @Setter
-    LocalDate datum;
-    String megjegyzes;
+    LocalDateTime OrderDate;
     @Getter
     @Setter
-    int ar;
+    String Comment;
     @Getter
     @Setter
-    boolean allapot;
+    RendelesAllapot OrderState;
+
+    public Rendeles(User orderedBy,String Address, Collection<Pizza> Pizzas,LocalDateTime time,String Comment,RendelesAllapot state){
+        this.UserThatOrderedThePizza = orderedBy;
+        if(Address.isEmpty())
+            this.Address = orderedBy.getAddress();
+        else
+            this.Address = Address;
+        this.Pizzas = Pizzas;
+        this.OrderDate = time;
+        this.Comment = Comment;
+        this.OrderState = state;
+    }
 }
