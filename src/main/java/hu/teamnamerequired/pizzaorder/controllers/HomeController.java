@@ -23,4 +23,8 @@ public class HomeController {
         return model;
 
     }
+    @GetMapping("/international")
+    public String getInternationalPage() {
+        return "international";
+    }
 }
