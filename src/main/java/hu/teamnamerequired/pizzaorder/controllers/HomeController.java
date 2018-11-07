@@ -11,14 +11,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @EnableAutoConfiguration
 public class HomeController {
 
-    @RequestMapping(value =  {"/","/welcome"} , method = GET)
+    @RequestMapping(value =  {"/"} , method = GET)
     @ResponseBody
     public ModelAndView welcomePage() {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Hello World");
         model.addObject("message", "This is welcome page!");
-        model.setViewName("Home.html");
+        model.setViewName("Index.html");
         model.addObject("greeting","asd");
         return model;
 
