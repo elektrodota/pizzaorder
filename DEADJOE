@@ -43,3 +43,34 @@ Processing '/etc/joe/editorrc'...
 Processing '/etc/joe/ftyperc'...
 Finished processing /etc/joe/ftyperc
 Finished processing /etc/joe/editorrc
+
+*** These modified files were found in JOE when it aborted on Wed Nov  7 15:26:41 2018
+*** JOE was aborted because the terminal closed
+
+*** File '/home/szabo/pizzaorder/.git/MERGE_MSG'
+Merge branch 'master' of https://github.com/elektrodota/pizzaorder
+
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+
+*** File '(Unnamed)'
+pr.c
+pr.c
+pr.c
+pr.c
+pr.c
+pr.c
+pr.c
+pr.c
+pr.c
+/home/szabo/Asztal/HexGame/.git/COMMIT_EDITMSG
+/home/szabo/pizzaorder/.git/MERGE_MSG
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
