@@ -1,11 +1,15 @@
 package hu.teamnamerequired.pizzaorder.service;
 
+import hu.teamnamerequired.pizzaorder.dao.Pizza;
 import hu.teamnamerequired.pizzaorder.dao.Rendeles;
 import hu.teamnamerequired.pizzaorder.interfaces.RendelesService;
 import hu.teamnamerequired.pizzaorder.repositories.RendelesRepository;
+import hu.teamnamerequired.pizzaorder.resources.PizzaSize;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -13,21 +17,36 @@ public class RendelesServiceImpl implements RendelesService {
     @Autowired
     RendelesRepository rendelesRepo;
 
-    // TODO: 2018. 11. 01. Rendelés hozzáadása
+
     @Override
     public Rendeles createRendeles(Rendeles rendeles) {
-        return null;
+        rendelesRepo.save(rendeles);
+        return rendeles;
     }
 
-    // TODO: 2018. 11. 01. Rendelés szerkesztése
     @Override
-    public Rendeles updateRendeles(Rendeles rendeles) {
-        return null;
+    public int totalPrice(Rendeles rendeles) {
+        Collection<Pizza> pizzak = rendeles.getPizzas();
+        int sum=0;
+        for (Pizza pizza:pizzak){
+            switch (pizza.getSize()){
+                case Kicsi:sum+=pizza.getSmalPrice(); break;
+                case Kozepes:sum+=pizza.getMidPrice(); break;
+                case Nagy:sum+=pizza.getBigPrice(); break;
+            }
+        }
+        return sum;
     }
 
-    // TODO: 2018. 11. 01. Rendelés törlése
+    /*
+        // TODO: 2018. 11. 01. Rendelés szerkesztése
+        @Override
+        public Rendeles updateRendeles(Rendeles rendeles) {
+            return null;
+        }
+    */
     @Override
     public void deleteRendeles(Long rendelesId) {
-
+        rendelesRepo.deleteById(rendelesId);
     }
 }

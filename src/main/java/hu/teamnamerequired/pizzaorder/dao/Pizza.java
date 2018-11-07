@@ -19,8 +19,21 @@ public class Pizza {
     String Description;
     @Getter
     @Setter
+    String Name;
+    @Getter
+    @Setter
+    String Image;
+    @Getter
+    @Setter
     PizzaSize Size;
     @Getter
     @Setter
-    int Price;
+    int SmalPrice;
+    @Getter
+    @Setter
+    int MidPrice;
+    @Getter
+    @Setter
+    int BigPrice;
+
 }
