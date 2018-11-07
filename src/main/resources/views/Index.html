@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Metas -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Utolsó Vacsora Pizzéria - Home</title>
+    <!-- End of Metas -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav id="navigation" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="./img/logowithoutsunrays.png" width="64" height="64" class="d-inline-block align-top" alt="Utolsó Vacsora">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pizzas" title="ide majd a felső linkekhez jöhet majd local scroll">Pizzáink</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#signInModal" href="#" title="csak akkor van itt ha nincs belépve a user">SignIn</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">faszomgyuri@talicska.hu</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Profil</a>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="checkout.html">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div id="welcome" class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Üdvözöljük pizzériánk weboldalán!</h1>
+            <p>Valami fos szöveg jöhet még ide csak hogy jobban nézzen ki.</p>
+            <p><a class="btn btn-primary btn-lg" href="#pizzas" role="button">Tovább a pizzákhoz &raquo;</a></p>
+        </div>
+    </div>
+    <div id="searchArea" class="container">
+        <form id="searchPizzas" class="form-inline row" method="POST">
+            <h1 class="mb-2 col">Pizzáink</h1>
+            <div class="mb-2 d-flex justify-content-end col">
+                <input type="text" class="form-control" id="search_text" placeholder="pl.: ananász" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Keresés</button>
+            </div>
+        </form>
+    </div>
+    <div id="pizzas" class="container">
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src="./img/pizza-ananas-ev.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Hawaii pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Hawaii pizza ananásszos sonkás feltéttel meg még egy kis plussz szöveg hogy lássam hogy nézne ki öcsém</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="./img/Homemade-Pizza-Crust-8.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Sajtos pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Sajtos pizza rendkívül sok sajtos feltéttel paradicsomos alappal</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="./img/pepperoni-pizza.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Pepperoni pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Pepperonis pizza rendkívül sajttal paradicsomos alappal</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src="./img/pizza-ananas-ev.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Hawaii pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Hawaii pizza ananásszos sonkás feltéttel meg még egy kis plussz szöveg hogy lássam hogy nézne ki öcsém</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="./img/Homemade-Pizza-Crust-8.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Sajtos pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Sajtos pizza rendkívül sok sajtos feltéttel paradicsomos alappal</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="./img/pepperoni-pizza.jpg" />
+                <div class="card-body">
+                    <h5 class="card-title">Pepperoni pizza</h5>
+                    <p class="card-text" title="db-ből húzza majd a leírást">Pepperonis pizza rendkívül sajttal paradicsomos alappal</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+    <div class="container" style="padding-top:10px">
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-lg justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div id="signInModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signInModalTitle">Please sign in</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="signInForm" class="form-signin" method="POST">
+                        <div class="center">
+                            <img class="mb-4" src="./img/logowithoutsunrays.png" alt="" width="128" height="128">
+                        </div>
+                        <label for="inputEmail" class="sr-only">Email address</label>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <a href="#" title="shows the sign up modal or something">New to this site?</a>
+                    </form>
+                </div>
+                <div class="modal-footer list-group">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="signInForm">Sign in</button>
+                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+                        <i class="fab fa-facebook-f"></i> Sign in with Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<hr>
+<footer class="container">
+    <p>&copy; Utolsó Vacsora Pizzéria 2017-2018</p>
+</footer>
+</body>
+</html>
