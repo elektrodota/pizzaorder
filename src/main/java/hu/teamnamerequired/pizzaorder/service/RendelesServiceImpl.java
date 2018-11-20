@@ -1,10 +1,9 @@
 package hu.teamnamerequired.pizzaorder.service;
 
-import hu.teamnamerequired.pizzaorder.dao.Pizza;
-import hu.teamnamerequired.pizzaorder.dao.Rendeles;
+import hu.teamnamerequired.pizzaorder.entities.Pizza;
+import hu.teamnamerequired.pizzaorder.entities.Rendeles;
 import hu.teamnamerequired.pizzaorder.interfaces.RendelesService;
 import hu.teamnamerequired.pizzaorder.repositories.RendelesRepository;
-import hu.teamnamerequired.pizzaorder.resources.PizzaSize;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class RendelesServiceImpl implements RendelesService {
         int sum=0;
         for (Pizza pizza:pizzak){
             switch (pizza.getSize()){
-                case Kicsi:sum+=pizza.getSmalPrice(); break;
+                case Kicsi:sum+=pizza.getSmallPrice(); break;
                 case Kozepes:sum+=pizza.getMidPrice(); break;
                 case Nagy:sum+=pizza.getBigPrice(); break;
             }

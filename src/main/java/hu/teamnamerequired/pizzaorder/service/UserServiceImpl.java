@@ -1,6 +1,6 @@
 package hu.teamnamerequired.pizzaorder.service;
 
-import hu.teamnamerequired.pizzaorder.dao.User;
+import hu.teamnamerequired.pizzaorder.entities.User;
 import hu.teamnamerequired.pizzaorder.interfaces.UserService;
 import hu.teamnamerequired.pizzaorder.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

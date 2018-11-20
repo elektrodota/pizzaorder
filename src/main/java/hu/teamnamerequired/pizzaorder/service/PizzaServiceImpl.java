@@ -1,6 +1,6 @@
 package hu.teamnamerequired.pizzaorder.service;
 
-import hu.teamnamerequired.pizzaorder.dao.Pizza;
+import hu.teamnamerequired.pizzaorder.entities.Pizza;
 import hu.teamnamerequired.pizzaorder.interfaces.PizzaService;
 import hu.teamnamerequired.pizzaorder.repositories.PizzaRepository;
 import lombok.RequiredArgsConstructor;

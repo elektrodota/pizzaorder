@@ -1,6 +1,6 @@
 package hu.teamnamerequired.pizzaorder.interfaces;
 
-import hu.teamnamerequired.pizzaorder.dao.Rendeles;
+import hu.teamnamerequired.pizzaorder.entities.Rendeles;
 
 public interface RendelesService {
     Rendeles createRendeles(Rendeles rendeles);

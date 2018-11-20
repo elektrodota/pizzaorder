@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Metas -->
     <meta charset="utf-8">
@@ -18,40 +18,40 @@
     <!-- End of Metas -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="/content/css/index.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav id="navigation" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">
-        <img src="./img/logowithoutsunrays.png" width="64" height="64" class="d-inline-block align-top" alt="Utolsó Vacsora">
+        <img src="/content/img/logowithoutsunrays.png" width="64" height="64" class="d-inline-block align-top" alt="Utolsó Vacsora Pizzéria logo">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#pizzaNavbar" aria-controls="pizzaNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div class="collapse navbar-collapse" id="pizzaNavbar">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#pizzas" title="ide majd a felső linkekhez jöhet majd local scroll">Pizzáink</a>
+                <a class="nav-link" href="#pizzas">Pizzáink</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#signInModal" href="#" title="csak akkor van itt ha nincs belépve a user">SignIn</a>
+            <li class="nav-item" th:unless="${isUserLoggedIn}">
+                <a class="nav-link" data-toggle="modal" data-target="#signInModal" href="#">SignIn</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">faszomgyuri@talicska.hu</a>
+            <li class="nav-item dropdown" th:if="${isUserLoggedIn}">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${userName}">faszomgyuri@talicska.hu</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="#">Profil</a>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="Logout">Logout</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="checkout.html">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
+                <a class="nav-link" href="Checkout">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
             </li>
         </ul>
     </div>
@@ -61,8 +61,8 @@
 
     <div id="welcome" class="jumbotron">
         <div class="container">
-            <h1 class="display-3">Üdvözöljük pizzériánk weboldalán!</h1>
-            <p>Valami fos szöveg jöhet még ide csak hogy jobban nézzen ki.</p>
+            <h1 class="display-3" th:text="#{home.greeting}">Üdvözöljük pizzériánk weboldalán!</h1>
+            <p>Valami fos szöveg jöhet még ide csak hogy jobban nézzen ki. btw miért nem működik az Ő ő betű?</p>
             <p><a class="btn btn-primary btn-lg" href="#pizzas" role="button">Tovább a pizzákhoz &raquo;</a></p>
         </div>
     </div>
@@ -76,124 +76,30 @@
         </form>
     </div>
     <div id="pizzas" class="container">
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="./img/pizza-ananas-ev.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Hawaii pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Hawaii pizza ananásszos sonkás feltéttel meg még egy kis plussz szöveg hogy lássam hogy nézne ki öcsém</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
+            <div class="row" th:each="pizza, iterStat : ${pizzas}" th:if="${iterStat.index} % 3 == 0">
+                <div class="card col-sm-4" th:each="pizza , pizzaStat : ${pizzas}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
+                    <img class="card-img-top" th:src="${pizza.Image}" />
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${pizza.Name}">No name</h5>
+                        <p class="card-text" th:text="${pizza.Description}">No desc</p>
+                        <div class="form-group row">
+                            <p class="col">
+                                <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                            </p>
+                            <p class="col">
+                                <select class="form-control">
+                                    <option>32cm</option>
+                                    <option>42cm</option>
+                                    <option>52cm</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="col" th:text="${pizza.SmallPrice}">0 Ft</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="./img/Homemade-Pizza-Crust-8.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Sajtos pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Sajtos pizza rendkívül sok sajtos feltéttel paradicsomos alappal</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="./img/pepperoni-pizza.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Pepperoni pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Pepperonis pizza rendkívül sajttal paradicsomos alappal</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="./img/pizza-ananas-ev.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Hawaii pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Hawaii pizza ananásszos sonkás feltéttel meg még egy kis plussz szöveg hogy lássam hogy nézne ki öcsém</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="./img/Homemade-Pizza-Crust-8.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Sajtos pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Sajtos pizza rendkívül sok sajtos feltéttel paradicsomos alappal</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="./img/pepperoni-pizza.jpg" />
-                <div class="card-body">
-                    <h5 class="card-title">Pepperoni pizza</h5>
-                    <p class="card-text" title="db-ből húzza majd a leírást">Pepperonis pizza rendkívül sajttal paradicsomos alappal</p>
-                    <div class="form-group row">
-                        <p class="col">
-                            <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
-                        </p>
-                        <p class="col">
-                            <select class="form-control">
-                                <option>32cm</option>
-                                <option>42cm</option>
-                                <option>52cm</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div> <!-- /container -->
     <div class="container" style="padding-top:10px">
         <nav aria-label="Page navigation">
@@ -228,7 +134,7 @@
                 <div class="modal-body">
                     <form id="signInForm" class="form-signin" method="POST">
                         <div class="center">
-                            <img class="mb-4" src="./img/logowithoutsunrays.png" alt="" width="128" height="128">
+                            <img class="mb-4" src="/content/img/logowithoutsunrays.png" alt="" width="128" height="128">
                         </div>
                         <label for="inputEmail" class="sr-only">Email address</label>
                         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -236,10 +142,10 @@
                         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
                         <div class="checkbox mb-3">
                             <label>
-                                <input type="checkbox" value="remember-me"> Remember me
+                                <input type="checkbox" value="stay-logged-in"> Stay logged in
                             </label>
                         </div>
-                        <a href="#" title="shows the sign up modal or something">New to this site?</a>
+                        <a data-toggle="modal" data-target="#registerModal" data-dismiss="modal" href="#">New to this site?</a>
                     </form>
                 </div>
                 <div class="modal-footer list-group">
@@ -251,11 +157,62 @@
             </div>
         </div>
     </div>
+    <div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalTitle">Please sign in</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" class="form-signin" method="POST">
+                        <div class="center">
+                            <img class="mb-4" src="/content/img/logowithoutsunrays.png" alt="" width="128" height="128">
+                        </div>
+                        <label for="registerEmail" class="sr-only">Email address</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <label for="registerPassword" class="sr-only">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="Password" required>
+                        <label for="registerConfirmPassword" class="sr-only">Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="stay-logged-in"> Stay logged in
+                            </label>
+                        </div>
+                        <a data-toggle="modal" data-target="#signInModal" data-dismiss="modal" href="#">Already have an account?</a>
+                    </form>
+                </div>
+                <script>
+                    var password = document.getElementById("registerPassword"), confirm_password = document.getElementById("registerConfirmPassword");
+
+                    function validatePassword(){
+                      if(password.value != confirm_password.value) {
+                        confirm_password.setCustomValidity("Passwords don't match");
+                      } else {
+                        confirm_password.setCustomValidity('');
+                      }
+                    }
+
+                    password.onchange = validatePassword;
+                    confirm_password.onkeyup = validatePassword;
+                </script>
+                <div class="modal-footer list-group">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="registerForm">Sign in</button>
+                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+                        <i class="fab fa-facebook-f"></i> Sign in with Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </main>
 <hr>
 <footer class="container">
-    <p>&copy; Utolsó Vacsora Pizzéria 2017-2018</p>
+    <p>&copy; Utolsó Vacsora Pizzéria <span th:text="${currentYear}">Which year is it?</span></p>
 </footer>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package hu.teamnamerequired.pizzaorder.repositories;
 
-import hu.teamnamerequired.pizzaorder.dao.Pizza;
-import hu.teamnamerequired.pizzaorder.dao.User;
+import hu.teamnamerequired.pizzaorder.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

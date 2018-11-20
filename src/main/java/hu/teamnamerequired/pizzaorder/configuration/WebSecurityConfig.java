@@ -9,13 +9,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
@@ -27,14 +22,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        // @formatter:off
         auth.inMemoryAuthentication()
                 .withUser("user1").password(passwordEncoder().encode("1234")).roles("USER")
                 .and()
                 .withUser("user2").password(passwordEncoder().encode("12345")).roles("USER")
                 .and()
                 .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-        // @formatter:on
     }
 
     @Override
@@ -45,11 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .anyRequest().authenticated()
           .and()
           .formLogin()
-          .defaultSuccessUrl("/welcome")
-          .failureUrl("/Login.html?error=true")
+          .defaultSuccessUrl("/")
+          .failureUrl("/?error=true")
           .failureHandler(authenticationFailureHandler())
           .and()
-          .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Login.html").logoutSuccessHandler(logoutSuccessHandler()).and()
+          .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Index.html").logoutSuccessHandler(logoutSuccessHandler()).and()
           .exceptionHandling().accessDeniedPage("/accessDenied").accessDeniedHandler(accessDeniedHandler());
 
 

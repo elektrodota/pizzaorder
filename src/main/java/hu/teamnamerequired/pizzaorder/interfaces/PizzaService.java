@@ -1,7 +1,6 @@
 package hu.teamnamerequired.pizzaorder.interfaces;
 
-import hu.teamnamerequired.pizzaorder.dao.Pizza;
-import hu.teamnamerequired.pizzaorder.service.PizzaServiceImpl;
+import hu.teamnamerequired.pizzaorder.entities.Pizza;
 
 public interface PizzaService {
     Pizza createPizza(Pizza pizza);

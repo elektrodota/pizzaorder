@@ -1,6 +1,6 @@
 package hu.teamnamerequired.pizzaorder.interfaces;
 
-import hu.teamnamerequired.pizzaorder.dao.User;
+import hu.teamnamerequired.pizzaorder.entities.User;
 
 public interface UserService {
     User createUser(User user);
