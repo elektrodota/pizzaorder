@@ -32,18 +32,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/Login*").anonymous()
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/h2_console/**").permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable()
+                .and().authorizeRequests().antMatchers("/Login*").anonymous()
                 .and().authorizeRequests().antMatchers("/Checkout").authenticated()
                 .and().authorizeRequests().antMatchers("/Checkout").hasAnyAuthority("USER","ADMIN")
-          .and().formLogin()
-          .defaultSuccessUrl("/")
-          .failureUrl("/?error=true")
-          .failureHandler(authenticationFailureHandler())
-          .and()
-          .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Index.html").logoutSuccessHandler(logoutSuccessHandler()).and()
-          .exceptionHandling().accessDeniedPage("/accessDenied").accessDeniedHandler(accessDeniedHandler());
+                .and().formLogin()
+                .defaultSuccessUrl("/")
+                .failureUrl("/?error=true")
+                .failureHandler(authenticationFailureHandler())
+                .and()
+                .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/Index.html").logoutSuccessHandler(logoutSuccessHandler()).and()
+                .exceptionHandling().accessDeniedPage("/accessDenied").accessDeniedHandler(accessDeniedHandler());
 
 
     }
