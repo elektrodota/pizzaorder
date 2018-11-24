@@ -33,11 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-          .authorizeRequests()
-          .antMatchers("/Login*").anonymous()
-          .anyRequest().authenticated()
-          .and()
-          .formLogin()
+                .authorizeRequests()
+                .antMatchers("/Login*").anonymous()
+                .and().authorizeRequests().antMatchers("/Checkout").authenticated()
+                .and().authorizeRequests().antMatchers("/Checkout").hasAnyAuthority("USER","ADMIN")
+          .and().formLogin()
           .defaultSuccessUrl("/")
           .failureUrl("/?error=true")
           .failureHandler(authenticationFailureHandler())
