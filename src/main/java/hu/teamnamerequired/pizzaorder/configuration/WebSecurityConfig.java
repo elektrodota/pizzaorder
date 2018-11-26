@@ -40,7 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable()
                 .and().authorizeRequests().antMatchers("/Login*").anonymous()
                 .and().authorizeRequests().antMatchers("/Checkout").authenticated()
-                .and().authorizeRequests().antMatchers("/Checkout").hasAnyAuthority("USER","ADMIN")
                 .and().formLogin()
                 .defaultSuccessUrl("/")
                 .failureUrl("/?error=true")
