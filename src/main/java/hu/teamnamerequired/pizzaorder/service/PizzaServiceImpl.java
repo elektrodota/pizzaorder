@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PizzaServiceImpl implements PizzaService {
@@ -40,6 +43,16 @@ public class PizzaServiceImpl implements PizzaService {
             pizzaRepo.delete(pizzaToDelete);
         }
         catch (PizzaNotFoundException e){}
+    }
+
+    @Override
+    public List<Pizza> getAllPizza() {
+        return pizzaRepo.findAll().stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pizza> getPizzaByDescription(String description) {
+        return pizzaRepo.findByTopping(description).stream().collect(Collectors.toList());
     }
 
     public class PizzaNotFoundException extends Exception {

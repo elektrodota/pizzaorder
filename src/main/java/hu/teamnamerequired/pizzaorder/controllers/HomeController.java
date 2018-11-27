@@ -1,7 +1,10 @@
 package hu.teamnamerequired.pizzaorder.controllers;
 
 import hu.teamnamerequired.pizzaorder.entities.Pizza;
+import hu.teamnamerequired.pizzaorder.interfaces.PizzaService;
 import hu.teamnamerequired.pizzaorder.repositories.PizzaRepository;
+import hu.teamnamerequired.pizzaorder.service.PizzaServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +24,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @EnableAutoConfiguration
 public class HomeController {
+    @Autowired
+    PizzaService pizzaService;
 
-    PizzaRepository pizzaRepo;
 
-    public HomeController(PizzaRepository pizzaRepo) {
-        this.pizzaRepo = pizzaRepo;
-    }
 
     @RequestMapping(value =  {"/"} , method = GET)
     @ResponseBody
@@ -64,7 +65,7 @@ public class HomeController {
         p4.setImage("/content/img/pepperoni-pizza.jpg");
         */
 
-        List<Pizza> test = pizzaRepo.findAll().stream().collect(Collectors.toList());
+        List<Pizza> test = pizzaService.getAllPizza();
 
 
 
@@ -76,10 +77,9 @@ public class HomeController {
         return model;
 
     }
-    @RequestMapping(value =  {"/"} ,params = "description", method = POST)
+    @RequestMapping(value =  {"/"} , method = POST)
     @ResponseBody
-    public ModelAndView welcomePage( @RequestParam String  description, @RequestParam String text) {
-
+    public ModelAndView welcomePage( @RequestParam String text) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView model = new ModelAndView();
@@ -113,8 +113,7 @@ public class HomeController {
         p4.setImage("/content/img/pepperoni-pizza.jpg");
         */
 
-        List<Pizza> test = pizzaRepo.findByTopping(text).stream().collect(Collectors.toList());
-
+        List<Pizza> test = pizzaService.getPizzaByDescription(text);
 
 
 
