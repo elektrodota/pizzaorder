@@ -51,6 +51,15 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
+    public Pizza getPizzaById(long Id) {
+        try {
+            return pizzaRepo.findById(Id).orElseThrow(() -> new PizzaNotFoundException(String.format(PIZZA_NOT_FOUND, Id)));
+        }
+        catch (PizzaNotFoundException e){}
+        return null;
+    }
+
+    @Override
     public List<Pizza> getPizzaByDescription(String description) {
         return pizzaRepo.findByTopping(description).stream().collect(Collectors.toList());
     }

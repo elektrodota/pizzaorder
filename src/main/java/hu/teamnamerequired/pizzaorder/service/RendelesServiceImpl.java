@@ -1,5 +1,6 @@
 package hu.teamnamerequired.pizzaorder.service;
 
+import hu.teamnamerequired.pizzaorder.dtos.PizzaDto;
 import hu.teamnamerequired.pizzaorder.entities.Pizza;
 import hu.teamnamerequired.pizzaorder.entities.Rendeles;
 import hu.teamnamerequired.pizzaorder.interfaces.RendelesService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,16 +27,7 @@ public class RendelesServiceImpl implements RendelesService {
 
     @Override
     public int totalPrice(Rendeles rendeles) {
-        Collection<Pizza> pizzak = rendeles.getPizzas();
-        int sum=0;
-        for (Pizza pizza:pizzak){
-            switch (pizza.getSize()){
-                case Kicsi:sum+=pizza.getSmallPrice(); break;
-                case Kozepes:sum+=pizza.getMidPrice(); break;
-                case Nagy:sum+=pizza.getBigPrice(); break;
-            }
-        }
-        return sum;
+        return 0; //rendeles.getPizzas().stream().mapToInt(p->p.getPizzaPrice()).sum();
     }
 
     /*

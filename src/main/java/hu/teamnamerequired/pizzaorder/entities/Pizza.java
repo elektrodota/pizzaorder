@@ -1,11 +1,9 @@
 package hu.teamnamerequired.pizzaorder.entities;
 
-import hu.teamnamerequired.pizzaorder.enums.PizzaSize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,7 @@ public class Pizza {
     @Getter
     @Setter
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    Long Id;
+    long Id;
     @Getter
     @Setter
     String Description;
@@ -29,9 +27,6 @@ public class Pizza {
     String Image;
     @Getter
     @Setter
-    PizzaSize Size;
-    @Getter
-    @Setter
     int SmallPrice;
     @Getter
     @Setter
@@ -39,5 +34,4 @@ public class Pizza {
     @Getter
     @Setter
     int BigPrice;
-
 }

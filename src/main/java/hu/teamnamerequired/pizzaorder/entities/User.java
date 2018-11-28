@@ -23,8 +23,4 @@ public class User {
     @Getter
     @Setter
     private String Address;
-    @Getter
-    @Setter
-    @ElementCollection
-    private Collection<Pizza> shoppingCart;
 }

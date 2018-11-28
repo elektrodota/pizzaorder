@@ -21,41 +21,11 @@
     <link rel="stylesheet" href="/content/css/index.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="/content/scripts/main.js"></script>
 </head>
 <body>
-<nav id="navigation" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">
-        <img src="/content/img/logowithoutsunrays.png" width="64" height="64" class="d-inline-block align-top" alt="Utolsó Vacsora Pizzéria logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#pizzaNavbar" aria-controls="pizzaNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="pizzaNavbar">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:text="#{home.home}" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:text="#{home.ourPizzas}" href="#pizzas">Pizzáink</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item" th:unless="${isUserLoggedIn}">
-                <a class="nav-link" data-toggle="modal" th:text="#{home.signIn}" data-target="#signInModal" href="#">SignIn</a>
-            </li>
-            <li class="nav-item dropdown" th:if="${isUserLoggedIn}">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${userName}">faszomgyuri@talicska.hu</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" th:text="#{home.profile}" href="#">Profil</a>
-                    <a class="dropdown-item" th:text="#{home.logout}" href="Logout">Logout</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Checkout" th:text="#{home.shoppingCart}">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+<div th:replace="_Header :: header"></div>
 
 <main role="main">
 
@@ -77,14 +47,14 @@
     </div>
     <div id="pizzas" class="container">
             <div class="row" th:each="pizza, iterStat : ${pizzas}" th:if="${iterStat.index} % 3 == 0">
-                <div class="card col-sm-4" th:each="pizza , pizzaStat : ${pizzas}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
+                <div class="card col-sm-4" th:data-id="${pizza.Id}" th:each="pizza , pizzaStat : ${pizzas}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
                     <img class="card-img-top" th:src="${pizza.Image}" />
                     <div class="card-body">
                         <h5 class="card-title" th:text="${pizza.Name}">No name</h5>
                         <p class="card-text" th:text="${pizza.Description}">No desc</p>
                         <div class="form-group row">
                             <p class="col">
-                                <a class="btn btn-secondary form-control" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
+                                <a class="btn btn-secondary form-control addToCart" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
                             </p>
                             <p class="col">
                                 <select class="form-control">
@@ -122,6 +92,9 @@
             </ul>
         </nav>
     </div>
+    <!--
+        Sign In Modal Begins Here
+    -->
     <div id="signInModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -150,13 +123,16 @@
                 </div>
                 <div class="modal-footer list-group">
                     <button class="btn btn-lg btn-primary btn-block" type="submit" form="signInForm" th:text="#{home.signIn.signIn}">Sign in</button>
-                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook" th:text="#{home.signIn.signInFB}">
-                        <i class="fab fa-facebook-f"></i> Sign in with Facebook
+                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+                        <i class="fab fa-facebook-f"></i> <span th:text="#{home.signIn.signInFB}">Sign in with Facebook<span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    <!--
+        Register Modal Begins Here
+    -->
     <div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -202,17 +178,39 @@
                 <div class="modal-footer list-group">
                     <button class="btn btn-lg btn-primary btn-block" type="submit" form="registerForm" th:text="#{home.signUp.signUp}">Sign up</button>
                     <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
-                        <i class="fab fa-facebook-f"></i> Sign in with Facebook
+                        <i class="fab fa-facebook-f"></i> <span th:text="#{home.signIn.signInFB}">Sign in with Facebook</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    <!--
+        Shopping Cart Modal Begins Here
+    -->
+    <div id="shoppingCartModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="shoppingCartModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shoppingCartModalTitle" th:text="#{home.shoppingCart}">Kosár</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="shoppingCartItems">
+
+                    </ul>
+                </div>
+                <div class="modal-footer list-group">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{home.shoppingCart.toCheckout}">Tovább a fizetéshez</button>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <hr>
-<footer class="container">
-    <p>&copy; Utolsó Vacsora Pizzéria <span th:text="${currentYear}">Which year is it?</span></p>
-</footer>
+
+<div th:replace="_Footer :: footer"></div>
+
 </body>
 </html>

@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-<div th:fragment="footer">
-    <h1>Thymeleaf Fragments sample</h1>
-    <h1 th:text="#{i18ntest.faszom}"></h1>
-</div>
-</body>
+<footer th:fragment="footer" class="container">
+    <p>&copy; Utolsó Vacsora Pizzéria <span th:text="${currentYear}">Which year is it?</span></p>
+</footer>
 </html>

@@ -17,7 +17,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
             "classpath:/public/",
             "classpath:/content/css/",
             "classpath:/content/img/",
-            "classpath:/content/js/"};
+            "classpath:/content/scripts/"};
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -28,7 +28,7 @@ public class ResourceConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/content/css/**").addResourceLocations("classpath:/content/css/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
 
-        registry.addResourceHandler("/content/js/**").addResourceLocations("classpath:/content/js/")
+        registry.addResourceHandler("/content/scripts/**").addResourceLocations("classpath:/content/scripts/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
         registry.addResourceHandler("/*.png").addResourceLocations("classpath:/")
                 .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());

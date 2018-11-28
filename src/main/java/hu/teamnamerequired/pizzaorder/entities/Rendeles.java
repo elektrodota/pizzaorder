@@ -1,5 +1,6 @@
 package hu.teamnamerequired.pizzaorder.entities;
 
+import hu.teamnamerequired.pizzaorder.dtos.PizzaDto;
 import hu.teamnamerequired.pizzaorder.enums.RendelesAllapot;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -28,7 +30,7 @@ public class Rendeles {
     @Getter
     @Setter
     @ElementCollection
-    Collection<Pizza> Pizzas;
+    private Collection<Pizza> Pizzas;
     @Getter
     @Setter
     LocalDateTime OrderDate;
