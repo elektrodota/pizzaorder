@@ -21,104 +21,33 @@ import java.util.stream.Stream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @RestController
 @EnableAutoConfiguration
 public class HomeController {
     @Autowired
     PizzaService pizzaService;
 
-
-
     @RequestMapping(value =  {"/"} , method = GET)
     @ResponseBody
-    public ModelAndView welcomePage() {
+    public ModelAndView welcomePage( @RequestParam(value = "filter",required = false) final String filter) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView model = new ModelAndView();
-
-        if(auth.isAuthenticated()) {
+        List<Pizza> pizzas;
+        if(!auth.getName().equalsIgnoreCase("anonymousUser")) {
             model.addObject("isUserLoggedIn", true);
             model.addObject("userName", auth.getName());
         }
-        /*Pizza p1 = new Pizza();
-        p1.setSmallPrice(5000);
-        p1.setDescription("Teszt");
-        p1.setName("Ananászos pizza");
-        p1.setImage("/content/img/pizza-ananas-ev.jpg");
-
-        Pizza p2 = new Pizza();
-        p2.setSmallPrice(7000);
-        p2.setDescription("Teszt2");
-        p2.setName("Gombás pizza");
-        p2.setImage("/content/img/pepperoni-pizza.jpg");
-
-        Pizza p3 = new Pizza();
-        p3.setSmallPrice(7000);
-        p3.setDescription("Teszt2");
-        p3.setName("Gombás pina");
-        p3.setImage("/content/img/pepperoni-pizza.jpg");
-
-        Pizza p4 = new Pizza();
-        p4.setSmallPrice(7000);
-        p4.setDescription("Teszt2");
-        p4.setName("Gombás biga");
-        p4.setImage("/content/img/pepperoni-pizza.jpg");
-        */
-
-        List<Pizza> test = pizzaService.getAllPizza();
-
-
-
-
-
-        model.setViewName("Index.html");
-        model.addObject("pizzas", test);
-        model.addObject("currentYear",LocalDateTime.now().getYear());
-        return model;
-
-    }
-    @RequestMapping(value =  {"/"} , method = POST)
-    @ResponseBody
-    public ModelAndView welcomePage( @RequestParam String text) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        ModelAndView model = new ModelAndView();
-
-        if(auth.isAuthenticated()) {
-            model.addObject("isUserLoggedIn", true);
-            model.addObject("userName", auth.getName());
+        if(null == filter){
+            pizzas = pizzaService.getAllPizza();
         }
-        /*Pizza p1 = new Pizza();
-        p1.setSmallPrice(5000);
-        p1.setDescription("Teszt");
-        p1.setName("Ananászos pizza");
-        p1.setImage("/content/img/pizza-ananas-ev.jpg");
-
-        Pizza p2 = new Pizza();
-        p2.setSmallPrice(7000);
-        p2.setDescription("Teszt2");
-        p2.setName("Gombás pizza");
-        p2.setImage("/content/img/pepperoni-pizza.jpg");
-
-        Pizza p3 = new Pizza();
-        p3.setSmallPrice(7000);
-        p3.setDescription("Teszt2");
-        p3.setName("Gombás pina");
-        p3.setImage("/content/img/pepperoni-pizza.jpg");
-
-        Pizza p4 = new Pizza();
-        p4.setSmallPrice(7000);
-        p4.setDescription("Teszt2");
-        p4.setName("Gombás biga");
-        p4.setImage("/content/img/pepperoni-pizza.jpg");
-        */
-
-        List<Pizza> test = pizzaService.getPizzaByDescription(text);
-
-
+        else{
+            pizzas = pizzaService.getPizzaByDescription(filter);
+        }
 
         model.setViewName("Index.html");
-        model.addObject("pizzas", test);
+        model.addObject("pizzas", pizzas);
         model.addObject("currentYear",LocalDateTime.now().getYear());
         return model;
 
