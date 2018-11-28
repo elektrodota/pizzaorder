@@ -14,7 +14,7 @@ public interface PizzaRepository extends CrudRepository<Pizza,Long> {
     Collection<Pizza> findAll();
     Optional<Pizza> findById(Long Id);
     @Modifying
-    @Query("from Pizza p where p.Description LIKE CONCAT('%',:topping,'%')")
+    @Query("from Pizza p where  LOWER(p.Description) LIKE   LOWER(CONCAT('%',:topping,'%'))")
     Collection<Pizza> findByTopping(@Param("topping") String topping);
 
 }
