@@ -15,6 +15,7 @@ public class Rendeles {
     @Id
     @Getter
     @Setter
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     Long Id;
     @Getter
     @Setter

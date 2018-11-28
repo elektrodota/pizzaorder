@@ -1,4 +1,4 @@
-package hu.teamnamerequired.pizzaorder.controllers;
+package hu.teamnamerequired.pizzaorder.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;

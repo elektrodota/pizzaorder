@@ -1,6 +1,7 @@
 package hu.teamnamerequired.pizzaorder.controllers;
 
 import hu.teamnamerequired.pizzaorder.entities.Pizza;
+import hu.teamnamerequired.pizzaorder.enums.PizzaSize;
 import hu.teamnamerequired.pizzaorder.interfaces.PizzaService;
 import hu.teamnamerequired.pizzaorder.repositories.PizzaRepository;
 import hu.teamnamerequired.pizzaorder.service.PizzaServiceImpl;

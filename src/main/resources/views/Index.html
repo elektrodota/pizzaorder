@@ -33,25 +33,25 @@
     <div class="collapse navbar-collapse" id="pizzaNavbar">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:text="#{home.home}" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#pizzas">Pizzáink</a>
+                <a class="nav-link" th:text="#{home.ourPizzas}" href="#pizzas">Pizzáink</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" th:unless="${isUserLoggedIn}">
-                <a class="nav-link" data-toggle="modal" data-target="#signInModal" href="#">SignIn</a>
+                <a class="nav-link" data-toggle="modal" th:text="#{home.signIn}" data-target="#signInModal" href="#">SignIn</a>
             </li>
             <li class="nav-item dropdown" th:if="${isUserLoggedIn}">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${userName}">faszomgyuri@talicska.hu</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Profil</a>
-                    <a class="dropdown-item" href="Logout">Logout</a>
+                    <a class="dropdown-item" th:text="#{home.profile}" href="#">Profil</a>
+                    <a class="dropdown-item" th:text="#{home.logout}" href="Logout">Logout</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Checkout">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
+                <a class="nav-link" href="Checkout" th:text="#{home.shoppingCart}">Kosár <i id="shopping_cart" class="fa fa-shopping-cart"></i></a>
             </li>
         </ul>
     </div>
@@ -62,16 +62,16 @@
     <div id="welcome" class="jumbotron">
         <div class="container">
             <h1 class="display-3" th:text="#{home.greeting}">Üdvözöljük pizzériánk weboldalán!</h1>
-            <p>Valami fos szöveg jöhet még ide csak hogy jobban nézzen ki. btw miért nem működik az Ő ő betű?</p>
-            <p><a class="btn btn-primary btn-lg" href="#pizzas" role="button">Tovább a pizzákhoz &raquo;</a></p>
+            <p th:text="#{home.slogan}">slogan text</p>
+            <p><a class="btn btn-primary btn-lg" href="#pizzas" role="button" th:utext="#{home.toPizzas}">Tovább a pizzákhoz &raquo;</a></p>
         </div>
     </div>
     <div id="searchArea" class="container">
         <form id="searchPizzas" class="form-inline row" method="GET">
-            <h1 class="mb-2 col">Pizzáink</h1>
+            <h1 class="mb-2 col" th:text="#{home.ourPizzas}">Pizzáink</h1>
             <div class="mb-2 d-flex justify-content-end col">
-                <input type="text" class="form-control" id="search_text" name="filter" placeholder="pl.: ananász" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Keresés</button>
+                <input type="text" class="form-control" id="search_text" name="filter" th:placeholder="#{home.searchPlaceholder}" placeholder="pl.: ananász" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{home.search}">Keresés</button>
             </div>
         </form>
     </div>
@@ -84,7 +84,7 @@
                         <p class="card-text" th:text="${pizza.Description}">No desc</p>
                         <div class="form-group row">
                             <p class="col">
-                                <a class="btn btn-secondary form-control" href="#" role="button">Kosárba &raquo;</a>
+                                <a class="btn btn-secondary form-control" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
                             </p>
                             <p class="col">
                                 <select class="form-control">
@@ -107,7 +107,7 @@
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
+                        <span class="sr-only" th:text="#{home.pagination.last}">Previous</span>
                     </a>
                 </li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -116,7 +116,7 @@
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only" th:text="#{home.pagination.next}">Next</span>
                     </a>
                 </li>
             </ul>
@@ -126,7 +126,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="signInModalTitle">Please sign in</h5>
+                    <h5 class="modal-title" id="signInModalTitle" th:text="#{home.signIn.title}">Please sign in</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -136,21 +136,21 @@
                         <div class="center">
                             <img class="mb-4" src="/content/img/logowithoutsunrays.png" alt="" width="128" height="128">
                         </div>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <label for="inputEmail" th:text="#{home.signIn.email}" class="sr-only">Email address</label>
+                        <input type="email" id="inputEmail" class="form-control" th:placeholder="#{home.signIn.email}" placeholder="Email address" required autofocus>
+                        <label for="inputPassword" th:text="#{home.signIn.password}" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" th:placeholder="#{home.signIn.password}" placeholder="Password" required>
                         <div class="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" value="stay-logged-in"> Stay logged in
+                            <label th:text="#{home.signIn.stayLoggedIn}">
+                                <input type="checkbox" value="stay-logged-in" > Stay logged in
                             </label>
                         </div>
-                        <a data-toggle="modal" data-target="#registerModal" data-dismiss="modal" href="#">New to this site?</a>
+                        <a data-toggle="modal" data-target="#registerModal" data-dismiss="modal" href="#" th:text="#{home.signIn.newToTheSite}">New to this site?</a>
                     </form>
                 </div>
                 <div class="modal-footer list-group">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="signInForm">Sign in</button>
-                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="signInForm" th:text="#{home.signIn.signIn}">Sign in</button>
+                    <button type="button" class="btn btn-lg btn-block btn-social btn-facebook" th:text="#{home.signIn.signInFB}">
                         <i class="fab fa-facebook-f"></i> Sign in with Facebook
                     </button>
                 </div>
@@ -161,7 +161,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalTitle">Please sign in</h5>
+                    <h5 class="modal-title" id="registerModalTitle" th:text="#{home.signUp.signUp}">Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -171,18 +171,18 @@
                         <div class="center">
                             <img class="mb-4" src="/content/img/logowithoutsunrays.png" alt="" width="128" height="128">
                         </div>
-                        <label for="registerEmail" class="sr-only">Email address</label>
-                        <input type="email" id="registerEmail" class="form-control" placeholder="Email address" required autofocus>
-                        <label for="registerPassword" class="sr-only">Password</label>
-                        <input type="password" id="registerPassword" class="form-control" placeholder="Password" required>
-                        <label for="registerConfirmPassword" class="sr-only">Password</label>
-                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+                        <label for="registerEmail" class="sr-only" th:text="#{home.signIn.email}">Email address</label>
+                        <input type="email" id="registerEmail" class="form-control" th:placeholder="#{home.signIn.email}" placeholder="Email address" required autofocus>
+                        <label for="registerPassword" class="sr-only" th:text="#{home.signIn.password}">Password</label>
+                        <input type="password" id="registerPassword" th:placeholder="#{home.signIn.password}" class="form-control" placeholder="Password" required>
+                        <label for="registerConfirmPassword" class="sr-only" th:text="#{home.signUp.confirmPassword}">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" th:placeholder="#{home.signUp.confirmPassword}" class="form-control" placeholder="Confirm Password" required>
                         <div class="checkbox mb-3">
-                            <label>
+                            <label th:text="#{home.signIn.stayLoggedIn}">
                                 <input type="checkbox" value="stay-logged-in"> Stay logged in
                             </label>
                         </div>
-                        <a data-toggle="modal" data-target="#signInModal" data-dismiss="modal" href="#">Already have an account?</a>
+                        <a data-toggle="modal" data-target="#signInModal" data-dismiss="modal" href="#" th:text="#{home.signUp.hasAccount}">Already have an account?</a>
                     </form>
                 </div>
                 <script>
@@ -200,7 +200,7 @@
                     confirm_password.onkeyup = validatePassword;
                 </script>
                 <div class="modal-footer list-group">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="registerForm">Sign in</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" form="registerForm" th:text="#{home.signUp.signUp}">Sign up</button>
                     <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
                         <i class="fab fa-facebook-f"></i> Sign in with Facebook
                     </button>
