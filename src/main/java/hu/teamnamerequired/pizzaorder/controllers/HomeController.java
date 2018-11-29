@@ -32,7 +32,7 @@ public class HomeController {
 
     @RequestMapping(value =  {"/"} , method = GET)
     @ResponseBody
-    public ModelAndView welcomePage( @RequestParam(value = "filter",required = false) final String filter) {
+    public ModelAndView welcomePage( @RequestParam(value = "filter",required = false) final Optional<String> filter,@RequestParam(value = "page") Optional<Integer> page) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView model = new ModelAndView();
         List<Pizza> pizzas;
@@ -44,33 +44,24 @@ public class HomeController {
             pizzas = pizzaService.getAllPizza();
         }
         else{
-            pizzas = pizzaService.getPizzaByDescription(filter);
+            pizzas = pizzaService.getAllPizza(filter.orElse(""));
         }
 
-        model.setViewName("Index.html");
-        model.addObject("pizzas", pizzas);
-        model.addObject("currentYear",LocalDateTime.now().getYear());
-        return model;
-    }
-    @RequestMapping(value =  {"/pagination/{page}"} , method = GET)
-    @ResponseBody
-    public String pagination(Model model, @RequestParam(value = "page") Optional<Integer> page) {
         page.ifPresent(p -> currentPage = p);
-        List<Pizza> pizzas = pizzaService.getAllPizza();
-        List<Pizza> pizzasShown;
-        int pages = pizzas.size()/pageSize;
-
-        Page<Pizza> pizzaPage = pizzaService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-
-        model.addAttribute("pizzaPage", pizzaPage);
+        Page<Pizza> pizzaPage = pizzaService.findPaginated(PageRequest.of(currentPage - 1, pageSize),filter.orElse(""));
 
         int totalPages = pizzaPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+            model.addObject("pageNumbers", pageNumbers);
         }
-        return "Index.html";
+
+        model.addObject("pizzaPage", pizzaPage);
+        model.addObject("currentPage", currentPage);
+        model.addObject("currentYear",LocalDateTime.now().getYear());
+        model.setViewName("Index.html");
+        return model;
     }
 }

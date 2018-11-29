@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +57,14 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
+    public List<Pizza> getAllPizza(String filter) {
+        final String f = filter.toLowerCase();
+        return pizzaRepo.findAll().stream()
+                .filter(p->p.getName().toLowerCase().contains(f) || p.getDescription().toLowerCase().contains(f))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Pizza getPizzaById(long Id) {
         try {
             return pizzaRepo.findById(Id).orElseThrow(() -> new PizzaNotFoundException(String.format(PIZZA_NOT_FOUND, Id)));
@@ -70,12 +79,13 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
-    public Page<Pizza> findPaginated(Pageable pageable) {
+    public Page<Pizza> findPaginated(Pageable pageable,String filter) {
 
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
-        List<Pizza> pizzas = getAllPizza();
+
+        List<Pizza> pizzas = getAllPizza(filter);
         List<Pizza> list;
 
         if (pizzas.size() < startItem) {

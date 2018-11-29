@@ -11,7 +11,8 @@ public interface PizzaService {
     Pizza updatePizza(Pizza pizza);
     void deletePizza(Long Id);
     List<Pizza> getAllPizza();
+    List<Pizza> getAllPizza(String filter);
     Pizza getPizzaById(long Id);
     List<Pizza> getPizzaByDescription(String description);
-    Page<Pizza> findPaginated(Pageable pageable);
+    Page<Pizza> findPaginated(Pageable pageable,String filter);
 }

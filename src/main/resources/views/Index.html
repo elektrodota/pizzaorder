@@ -46,49 +46,50 @@
         </form>
     </div>
     <div id="pizzas" class="container">
-            <div class="row" th:each="pizza, iterStat : ${pizzas}" th:if="${iterStat.index} % 3 == 0">
-                <div class="card col-sm-4" th:data-id="${pizza.Id}" th:each="pizza , pizzaStat : ${pizzas}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
-                    <img class="card-img-top" th:src="${pizza.Image}" />
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${pizza.Name}">No name</h5>
-                        <p class="card-text" th:text="${pizza.Description}">No desc</p>
-                        <div class="form-group row">
-                            <p class="col">
-                                <a class="btn btn-secondary form-control addToCart" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
-                            </p>
-                            <p class="col">
-                                <select class="form-control">
-                                    <option>32cm</option>
-                                    <option>42cm</option>
-                                    <option>52cm</option>
-                                </select>
-                            </p>
-                        </div>
-                        <div class="row">
-                            <p class="col" th:text="${pizza.SmallPrice}">0 Ft</p>
-                        </div>
+        <div class="row" th:each="pizza, iterStat : ${pizzaPage.content}" th:if="${iterStat.index} % 3 == 0">
+            <div class="card col-sm-4" th:data-id="${pizza.Id}" th:each="pizza , pizzaStat : ${pizzaPage.content}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
+                <img class="card-img-top" th:src="${pizza.Image}" />
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pizza.Name}">No name</h5>
+                    <p class="card-text" th:text="${pizza.Description}">No desc</p>
+                    <div class="form-group row">
+                        <p class="col">
+                            <a class="btn btn-secondary form-control addToCart" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
+                        </p>
+                        <p class="col">
+                            <select class="form-control">
+                                <option>32cm</option>
+                                <option>42cm</option>
+                                <option>52cm</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p class="col" th:text="${pizza.SmallPrice}">0 Ft</p>
                     </div>
                 </div>
             </div>
-    </div> <!-- /container -->
+        </div>
+    </div>
+    <!-- /container -->
     <div class="container" style="padding-top:10px">
         <nav aria-label="Page navigation">
             <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                <li class="page-item" th:if="${pizzaPage.hasPrevious()}">
+                    <a class="page-link" th:href="@{/(page=${currentPage-1})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only" th:text="#{home.pagination.last}" id="paginationPrev">Previous</span>
+                        <span class="sr-only" th:text="#{home.pagination.prev}" id="paginationPrev">Previous</span>
                     </a>
                 </li>
-                <div th:if="${pizzaPage.totalPages > 0}" class="pagination"
+                <li th:if="${pizzaPage.totalPages > 0}" class="page-item"
                      th:each="pageNumber : ${pageNumbers}">
-                    <a th:href="@{/listBooks(size=${pizzaPage.size}, page=${pageNumber})}"
+                    <a th:href="@{/(page=${pageNumber})}"
                        th:text=${pageNumber}
-                       th:class="${pageNumber==pizzaPage.number + 1} ? active">
+                       th:th:classappend="${pageNumber==pizzaPage.number + 1} ? active" class="page-link">
                     </a>
-                </div>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                </li>
+                <li class="page-item" th:if="${pizzaPage.hasNext()}">
+                    <a class="page-link" th:href="@{/(page=${currentPage+1})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only" th:text="#{home.pagination.next}" id="paginationNext">Next</span>
                     </a>
