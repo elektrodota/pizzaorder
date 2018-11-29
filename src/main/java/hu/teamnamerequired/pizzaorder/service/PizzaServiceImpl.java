@@ -5,8 +5,13 @@ import hu.teamnamerequired.pizzaorder.interfaces.PizzaService;
 import hu.teamnamerequired.pizzaorder.repositories.PizzaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +67,27 @@ public class PizzaServiceImpl implements PizzaService {
     @Override
     public List<Pizza> getPizzaByDescription(String description) {
         return pizzaRepo.findByTopping(description).stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Pizza> findPaginated(Pageable pageable) {
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Pizza> pizzas = getAllPizza();
+        List<Pizza> list;
+
+        if (pizzas.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, pizzas.size());
+            list = pizzas.subList(startItem, toIndex);
+        }
+
+        Page<Pizza> pizzaPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), pizzas.size());
+
+        return pizzaPage;
     }
 
     public class PizzaNotFoundException extends Exception {

@@ -77,16 +77,20 @@
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only" th:text="#{home.pagination.last}">Previous</span>
+                        <span class="sr-only" th:text="#{home.pagination.last}" id="paginationPrev">Previous</span>
                     </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <div th:if="${pizzaPage.totalPages > 0}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/listBooks(size=${pizzaPage.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:class="${pageNumber==pizzaPage.number + 1} ? active">
+                    </a>
+                </div>
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only" th:text="#{home.pagination.next}">Next</span>
+                        <span class="sr-only" th:text="#{home.pagination.next}" id="paginationNext">Next</span>
                     </a>
                 </li>
             </ul>
@@ -124,7 +128,7 @@
                 <div class="modal-footer list-group">
                     <button class="btn btn-lg btn-primary btn-block" type="submit" form="signInForm" th:text="#{home.signIn.signIn}">Sign in</button>
                     <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
-                        <i class="fab fa-facebook-f"></i> <span th:text="#{home.signIn.signInFB}">Sign in with Facebook<span>
+                        <i class="fab fa-facebook-f"></i> <span th:text="#{home.signIn.signInFB}">Sign in with Facebook</span>
                     </button>
                 </div>
             </div>
@@ -202,7 +206,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer list-group">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{home.shoppingCart.toCheckout}">Tovább a fizetéshez</button>
+                    <a href="/Checkout"><button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{home.shoppingCart.toCheckout}">Tovább a fizetéshez</button></a>
                 </div>
             </div>
         </div>
