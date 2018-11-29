@@ -23,10 +23,8 @@ function getPizza(id) {
     $.ajax({
         type : "POST",
         contentType : "application/json",
-        url : "/shoppingController/api/getPizza",
-        data : id,
-        dataType : 'json',
-        timeout : 100000,
+        url : "/shoppingCartController/api/getPizza",
+        data : {id:id},
         success : function(data) {
             console.log("SUCCESS: ", data);
             return data;
@@ -55,9 +53,12 @@ $('.addToCart').click(function (){
   items.push({pizzaID:id,pizzaSize:size});
   setCookie("items",items,1);
 
+  let pizza = getPizza(id);
 
-
-  $("#shoppingCartItems").append("<li></li>")
+  $("#shoppingCartItems").append(`
+  <li id="${pizza.pizzaID}">
+    <img src="${pizza.pizzaImage}"/>${pizza.pizzaName}<a class="removeFromCart" href="#"></a>
+  </li>`)
 
   $('#itemCount').text(items.length).css('display', 'block');
 
@@ -67,7 +68,6 @@ $('.addToCart').click(function (){
 // Remove Item From Cart
 $('#shoppingCartModal').on('click', '.removeFromCart', function(){
 
-  items.splice(,1)
   $('#itemCount').text(items.length);
 
   // Remove Cost of Deleted Item from Total Price
