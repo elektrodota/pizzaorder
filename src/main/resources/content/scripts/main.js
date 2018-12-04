@@ -20,11 +20,12 @@ function getCookie(cname) {
     return "";
 }
 function getPizza(id) {
+    console.log("id:",id);
     $.ajax({
         type : "POST",
         contentType : "application/json",
         url : "/shoppingCartController/api/getPizza",
-        data : {id:id},
+        data : id,
         success : function(data) {
             console.log("SUCCESS: ", data);
             return data;
@@ -49,21 +50,23 @@ var priceTotal;
 // Add Item to Cart
 $('.addToCart').click(function (event){
     event.preventDefault();
-
-  let id = $(this.closest(".card")).attr("id");
+  let id = $(this.closest(".card")).attr("data-id");
+  console.log("id:",id);
   let size = $(this.closest(".card")).find("select").val();
   items.push({pizzaID:id,pizzaSize:size});
   setCookie("items",items,1);
 
   let pizza = getPizza(id);
 
-  $("#shoppingCartItems").append(`
+  $("#shoppingCartItems").append(function (pizza) {
+      `
   <li id="${pizza.pizzaID}">
     <img src="${pizza.pizzaImage}"/>${pizza.pizzaName}<a class="removeFromCart" href="#"></a>
-  </li>`)
+  </li>`});
+
 
   $('#itemCount').text(items.length).css('display', 'block');
-
+  price=0;
   priceTotal += price;
 });
 
