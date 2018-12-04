@@ -47,7 +47,9 @@ if(getCookie(items)!="")
 var priceTotal;
 
 // Add Item to Cart
-$('.addToCart').click(function (){
+$('.addToCart').click(function (event){
+    event.preventDefault();
+
   let id = $(this.closest(".card")).attr("id");
   let size = $(this.closest(".card")).find("select").val();
   items.push({pizzaID:id,pizzaSize:size});
