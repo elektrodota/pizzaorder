@@ -22,18 +22,16 @@ function getCookie(cname) {
 
 function getPizza(id) {
     console.log("id:", id);
+
     $.ajax({
         type: "GET",
         contentType: "application/json",
         url: "/shoppingCartController/api/getPizza",
+
         data: id,
         success: function (data) {
             console.log("SUCCESS: ", data);
-            $("#shoppingCartItems").append(
-                `
-  <li id="${data.pizzaID}">
-    <img src="${data.pizzaImage}"/>${data.pizzaName}<a class="removeFromCart" href="#"></a>
-  </li>`);
+            addToCart(data);
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -42,6 +40,14 @@ function getPizza(id) {
             console.log("DONE");
         }
     });
+}
+function addToCart(pizza)
+{
+    $("#shoppingCartItems").append(
+        `
+  <li id="${pizza.pizzaID}">
+    <img src="${pizza.pizzaImage}"/>${pizza.pizzaName}<a class="removeFromCart" href="#"></a>
+  </li>`);
 }
 
 //Document ready function
@@ -60,7 +66,7 @@ $(function () {
         let size = $(this.closest(".card")).find("select").val();
         items.push({pizzaID: id, pizzaSize: size});
         setCookie(items, items, 1);
-        let pizza = getPizza({id: id});
+        getPizza({id: id});
 
 
         $('#itemCount').text(items.length).css('display', 'block');

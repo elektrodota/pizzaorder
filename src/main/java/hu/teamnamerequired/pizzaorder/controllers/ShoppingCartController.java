@@ -20,7 +20,6 @@ public class ShoppingCartController {
     @GetMapping(value = "/shoppingCartController/api/getPizza", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public PizzaDto getPizza(@RequestParam long id,HttpServletRequest httpServletRequest,Model uiModel) {
-        System.out.println("itt vagyok");
         PizzaDto result = new PizzaDto(pizzaService.getPizzaById(id));
         return result;
     }
