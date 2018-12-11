@@ -60,7 +60,7 @@ $(function () {
         let size = $(this.closest(".card")).find("select").val();
         items.push({pizzaID: id, pizzaSize: size});
         setCookie(items, items, 1);
-
+        let pizza = getPizza({id: id});
 
 
         $('#itemCount').text(items.length).css('display', 'block');
