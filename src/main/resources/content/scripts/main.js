@@ -50,13 +50,15 @@ function addToCart(pizza)
   </div>
 
   `);
+
+    calculateTotalPrice(items);
 }
 
 function calculateTotalPrice(items){
     var price = 0;
     for(var i=0;i<items.length;i++)
     {
-        price+=items[i].Price;
+        price+=items[i].price;
     }
     if(items.length != 0)
     $("#totalPrice").text(price);
@@ -64,6 +66,14 @@ function calculateTotalPrice(items){
     $("#totalPrice").text(0);
 }
 
+function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] == value) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 //Document ready function
 $(function () {
@@ -73,14 +83,14 @@ $(function () {
         let id = $(this.closest(".card")).attr("data-id");
         let size = $(this.closest(".card")).find("select").val();
         getPizza(id,size);
-        calculateTotalPrice(items);
     });
     // Remove Item From Cart
     $('#shoppingCartModal').on('click', '.removeFromCart', function () {
         event.preventDefault();
         console.log($(this).parent());
         let id = $(this).parent().attr("data-id");
-        let indexToRemove = items.indexOf(id);
+        let indexToRemove = findWithAttr(items,'pizzaID',id);
+        console.log(indexToRemove,id);
         if (indexToRemove > -1) {
           items.splice(indexToRemove, 1);
         }
