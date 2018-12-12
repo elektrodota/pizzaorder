@@ -45,6 +45,7 @@
             </div>
         </form>
     </div>
+    <!-- Pizza lista -->
     <div id="pizzas" class="container">
         <div class="row" th:each="pizza, iterStat : ${pizzaPage.content}" th:if="${iterStat.index} % 3 == 0">
             <div class="card col-sm-4" th:data-id="${pizza.Id}" th:each="pizza , pizzaStat : ${pizzaPage.content}" th:if="${pizzaStat.index lt iterStat.index + 3 and pizzaStat.index ge iterStat.index}">
@@ -54,7 +55,7 @@
                     <p class="card-text" th:text="${pizza.Description}">No desc</p>
                     <div class="form-group row">
                         <p class="col">
-                            <a class="btn btn-secondary form-control addToCart" href="#" role="button" id="addToCart" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
+                            <a class="btn btn-secondary form-control addToCart" href="#" role="button" th:utext="#{home.addToCart}">Kosárba &raquo;</a>
                         </p>
                         <p class="col">
                             <select class="form-control">
@@ -203,11 +204,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <ul id="shoppingCartItems">
+                    <ul id="shoppingCartItems" class="list-group">
 
                     </ul>
                 </div>
-                <div class="modal-footer list-group">
+                <div class="modal-footer">
+                    <p>Fizetendő összeg:<span id="totalPrice">0</span> <span>Ft</span></p>
                     <a href="/Checkout" id="toCheckout" ><button class="btn btn-lg btn-primary btn-block" type="submit"  th:text="#{home.shoppingCart.toCheckout}">Tovább a fizetéshez</button></a>
                 </div>
             </div>

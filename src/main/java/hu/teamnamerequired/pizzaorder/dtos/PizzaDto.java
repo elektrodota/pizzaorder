@@ -18,9 +18,17 @@ public class PizzaDto {
     @Getter
     @Setter
     private String pizzaImage;
-    public PizzaDto(Pizza pizza){
+    @Getter
+    @Setter
+    int Price;
+    @Getter
+    @Setter
+    PizzaSize pizzaSize;
+    public PizzaDto(Pizza pizza,int price,PizzaSize size){
         pizzaID=pizza.getId();
         pizzaName=pizza.getName();
         pizzaImage=pizza.getImage();
+        Price=price;
+        pizzaSize=size;
     }
 }

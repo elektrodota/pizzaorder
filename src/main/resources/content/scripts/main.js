@@ -1,34 +1,25 @@
-function setCookie(cname, cvalue, extradays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (extradays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+var items = [];
+
+function bake_cookie(name, value) {
+  var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+  document.cookie = cookie;
 }
 
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+function read_cookie(name) {
+ var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+ result && (result = JSON.parse(result[1]));
+ return result;
 }
 
-function getPizza(id) {
-    console.log("id:", id);
-
+function getPizza(id,size) {
     $.ajax({
         type: "GET",
         contentType: "application/json",
         url: "/shoppingCartController/api/getPizza",
-
-        data: id,
+        data: {
+        "id":id,
+        "size":size
+        },
         success: function (data) {
             console.log("SUCCESS: ", data);
             addToCart(data);
@@ -36,56 +27,69 @@ function getPizza(id) {
         error: function (e) {
             console.log("ERROR: ", e);
         },
-        done: function (e) {
-            console.log("DONE");
+        complete : function(){
+            console.log(this.url);
         }
     });
 }
 function addToCart(pizza)
 {
+    /*if (read_cookie("items") != "undefined") {
+        items = bake_cookie("items",items);
+    }*/
+    items.push(pizza);
+    $('#itemCount').text(items.length).css('display', 'block');
     $("#shoppingCartItems").append(
-        `
-  <li id="${pizza.pizzaID}">
-    <img src="${pizza.pizzaImage}"/>${pizza.pizzaName}<a class="removeFromCart" href="#"></a>
-  </li>`);
+  `
+  <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" class="row d-flex justify-content-between">
+    <p class="col">${pizza.pizzaName}</p>
+    <img class="col" src="${pizza.pizzaImage}"/>
+    <p class="col">${pizza.pizzaSize}</p>
+    <p class="col">${pizza.price}</p>
+    <a class="removeFromCart col" href="#">X</a>
+  </div>
+
+  `);
 }
+
+function calculateTotalPrice(items){
+    var price = 0;
+    for(var i=0;i<items.length;i++)
+    {
+        price+=items[i].Price;
+    }
+    if(items.length != 0)
+    $("#totalPrice").text(price);
+    else
+    $("#totalPrice").text(0);
+}
+
 
 //Document ready function
 $(function () {
-    var items = [];
-    if (getCookie(items) != "") {
-        items = getCookie(items);
-    }
-    var priceTotal;
-
-// Add Item to Cart
+    // Add Item to Cart
     $('.addToCart').click(function (event) {
         event.preventDefault();
         let id = $(this.closest(".card")).attr("data-id");
-        console.log("id:", id);
         let size = $(this.closest(".card")).find("select").val();
-        items.push({pizzaID: id, pizzaSize: size});
-        setCookie(items, items, 1);
-        getPizza({id: id});
-
-
-        $('#itemCount').text(items.length).css('display', 'block');
-        price = 0;
-        priceTotal += price;
+        getPizza(id,size);
+        calculateTotalPrice(items);
     });
-
-// Remove Item From Cart
+    // Remove Item From Cart
     $('#shoppingCartModal').on('click', '.removeFromCart', function () {
-
+        event.preventDefault();
+        console.log($(this).parent());
+        let id = $(this).parent().attr("data-id");
+        let indexToRemove = items.indexOf(id);
+        if (indexToRemove > -1) {
+          items.splice(indexToRemove, 1);
+        }
+        /*items = bake_cookie("items",items);*/
+        $(this).parent().remove();
         $('#itemCount').text(items.length);
-
-        // Remove Cost of Deleted Item from Total Price
-        var price = parseInt($(this).siblings().find('.price').text());
-        priceTotal -= price;
-
-        if (itemCount == 0) {
+        calculateTotalPrice(items);
+        if (items.length == 0) {
             $('#itemCount').css('display', 'none');
         }
     });
-
 });
