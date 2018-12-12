@@ -26,6 +26,9 @@ function getCookie(c_name) {
     }
     return "";
 }
+function deleteCookie( name ) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 
 function getPizza(id,size) {
     $.ajax({
@@ -61,11 +64,13 @@ function addToCart(pizza)
     item={itemid ,pizza};
     items.push(item);
     var json_str = JSON.stringify(items);
+    deleteCookie('items')
     createCookie('items', json_str);
+    console.log(getCookie('items'));
     $('#itemCount').text(items.length).css('display', 'block');
     appendShoppingCart(item);
 
-    calculateTotalPrice(items);
+    $("#totalPrice").text(calculateTotalPrice(items));
 }
 function appendShoppingCart(item)
 {
@@ -91,9 +96,10 @@ function calculateTotalPrice(items){
         price+=items[i].pizza.price;
     }
     if(items.length != 0)
-    $("#totalPrice").text(price);
+     return price;
     else
-    $("#totalPrice").text(0);
+        return 0;
+
 }
 
 function findWithAttr(array, attr, value) {
@@ -105,6 +111,25 @@ function findWithAttr(array, attr, value) {
     return -1;
 }
 
+function goToCheckOut(){
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/Checkout",
+
+        success: function () {
+            window.location=this.url;
+
+
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        },
+        complete : function(){
+            console.log(this.url);
+        }
+    });
+}
 //Document ready function
 $(function () {
     var json_str = getCookie('items');
@@ -137,7 +162,7 @@ $(function () {
         /*items = bake_cookie("items",items);*/
         $(this).parent().remove();
         $('#itemCount').text(items.length);
-        calculateTotalPrice(items);
+        $("#totalPrice").text(calculateTotalPrice(items));
         var json_str = JSON.stringify(items);
         createCookie('items', json_str);
         if (items.length == 0) {
@@ -145,28 +170,5 @@ $(function () {
         }
     });
 
-    function goToCheckOut(){
-            for(var i = 0; i < items.length; i += 1) {
-                delete items[i]["itemid"];
-            }
-            $.ajax({
-                type: "GET",
-                contentType: "application/json",
-                url: "/Checkout",
-                data: {
-                "items":items
-                },
-                success: function (data) {
-                    console.log("SUCCESS: ", data);
-                    window.location=this.url;
-                },
-                error: function (e) {
-                    console.log("ERROR: ", e);
-                },
-                complete : function(){
-                    console.log(this.url);
-                }
-            });
-    }
     $('#goToCheckout').on('click',goToCheckOut);
 });
