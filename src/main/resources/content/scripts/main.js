@@ -41,12 +41,12 @@ function addToCart(pizza)
     $('#itemCount').text(items.length).css('display', 'block');
     $("#shoppingCartItems").append(
   `
-  <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" class="row d-flex justify-content-between">
-    <p class="col">${pizza.pizzaName}</p>
-    <img class="col" src="${pizza.pizzaImage}"/>
-    <p class="col">${pizza.pizzaSize}</p>
-    <p class="col">${pizza.price}</p>
-    <a class="removeFromCart col" href="#">X</a>
+  <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" class="row">
+    <img class="col-sm-3" src="${pizza.pizzaImage}"/>
+    <p class="col-sm-3">${pizza.pizzaName}</p>
+    <p class="col-sm-3">${pizza.pizzaSize}</p>
+    <p class="col-sm-2">${pizza.price}</p>
+    <a class="removeFromCart col-sm-1" href="#">X</a>
   </div>
 
   `);
