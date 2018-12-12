@@ -107,4 +107,29 @@ $(function () {
             $('#itemCount').css('display', 'none');
         }
     });
+
+    function goToCheckOut(){
+            for(var i = 0; i < items.length; i += 1) {
+                delete items[i]["itemid"];
+            }
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/Checkout",
+                data: {
+                "items":items
+                },
+                success: function (data) {
+                    console.log("SUCCESS: ", data);
+                    window.location=this.url;
+                },
+                error: function (e) {
+                    console.log("ERROR: ", e);
+                },
+                complete : function(){
+                    console.log(this.url);
+                }
+            });
+    }
+    $('#goToCheckout').on('click',goToCheckOut);
 });
