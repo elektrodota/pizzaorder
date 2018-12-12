@@ -1,14 +1,30 @@
 var items = [];
-
-function bake_cookie(name, value) {
-  var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
-  document.cookie = cookie;
+var createCookie = function(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
 }
 
-function read_cookie(name) {
- var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
- result && (result = JSON.parse(result[1]));
- return result;
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
 }
 
 function getPizza(id,size) {
@@ -42,10 +58,22 @@ function addToCart(pizza)
         return 'id-' + Math.random().toString(36).substr(2, 16);
     };
     itemid=uniqueId();
-    items.push({itemid ,pizza});
+    item={itemid ,pizza};
+    items.push(item);
+    var json_str = JSON.stringify(items);
+    createCookie('items', json_str);
     $('#itemCount').text(items.length).css('display', 'block');
+    appendShoppingCart(item);
+
+    calculateTotalPrice(items);
+}
+function appendShoppingCart(item)
+{
+
+    pizza=item.pizza;
+    itemid=item.itemid;
     $("#shoppingCartItems").append(
-  `
+        `
   <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" item-id="${itemid}" class="row">
     <img class="col-sm-3" src="${pizza.pizzaImage}"/>
     <p class="col-sm-3">${pizza.pizzaName}</p>
@@ -55,10 +83,7 @@ function addToCart(pizza)
   </div>
 
   `);
-
-    calculateTotalPrice(items);
 }
-
 function calculateTotalPrice(items){
     var price = 0;
     for(var i=0;i<items.length;i++)
@@ -82,6 +107,16 @@ function findWithAttr(array, attr, value) {
 
 //Document ready function
 $(function () {
+    var json_str = getCookie('items');
+    if(json_str.length!=0)
+    {
+
+        items = JSON.parse(json_str);
+        $('#itemCount').text(items.length).css('display', 'block');
+        console.log(items);
+        for (var i=0;i<items.length;i+=1)
+            appendShoppingCart(items[i]);
+    }
     // Add Item to Cart
     $('.addToCart').click(function (event) {
         event.preventDefault();
@@ -103,6 +138,8 @@ $(function () {
         $(this).parent().remove();
         $('#itemCount').text(items.length);
         calculateTotalPrice(items);
+        var json_str = JSON.stringify(items);
+        createCookie('items', json_str);
         if (items.length == 0) {
             $('#itemCount').css('display', 'none');
         }
