@@ -32,16 +32,21 @@ function getPizza(id,size) {
         }
     });
 }
+
 function addToCart(pizza)
 {
     /*if (read_cookie("items") != "undefined") {
         items = bake_cookie("items",items);
     }*/
-    items.push(pizza);
+    var uniqueId = function() {
+        return 'id-' + Math.random().toString(36).substr(2, 16);
+    };
+    itemid=uniqueId();
+    items.push({itemid ,pizza});
     $('#itemCount').text(items.length).css('display', 'block');
     $("#shoppingCartItems").append(
   `
-  <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" class="row">
+  <div data-id="${pizza.pizzaID}" data-list-id="${items.length}" item-id="${itemid}" class="row">
     <img class="col-sm-3" src="${pizza.pizzaImage}"/>
     <p class="col-sm-3">${pizza.pizzaName}</p>
     <p class="col-sm-3">${pizza.pizzaSize}</p>
@@ -58,7 +63,7 @@ function calculateTotalPrice(items){
     var price = 0;
     for(var i=0;i<items.length;i++)
     {
-        price+=items[i].price;
+        price+=items[i].pizza.price;
     }
     if(items.length != 0)
     $("#totalPrice").text(price);
@@ -88,8 +93,8 @@ $(function () {
     $('#shoppingCartModal').on('click', '.removeFromCart', function () {
         event.preventDefault();
         console.log($(this).parent());
-        let id = $(this).parent().attr("data-id");
-        let indexToRemove = findWithAttr(items,'pizzaID',id);
+        let id = $(this).parent().attr("item-id");
+        let indexToRemove = findWithAttr(items,'itemid',id);
         console.log(indexToRemove,id);
         if (indexToRemove > -1) {
           items.splice(indexToRemove, 1);
