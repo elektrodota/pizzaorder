@@ -102,7 +102,7 @@
     <!--
         Sign In Modal Begins Here
     -->
-    <div id="signInModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true">
+    <div id="signInModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signInModal" aria-hidden="true" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -112,14 +112,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="signInForm" class="form-signin" method="POST">
+                    <form id="signInForm" class="form-signin" method="POST" action="/Login" >
                         <div class="center">
                             <img class="mb-4" src="/content/img/logowithoutsunrays.png" alt="" width="128" height="128">
                         </div>
                         <label for="inputEmail" th:text="#{home.signIn.email}" class="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" th:placeholder="#{home.signIn.email}" placeholder="Email address" required autofocus>
+                        <input type="email" name="email" id="inputEmail" class="form-control" th:placeholder="#{home.signIn.email}" placeholder="Email address" required autofocus>
                         <label for="inputPassword" th:text="#{home.signIn.password}" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" th:placeholder="#{home.signIn.password}" placeholder="Password" required>
+                        <input type="password" name="password" id="inputPassword" class="form-control" th:placeholder="#{home.signIn.password}" placeholder="Password" required>
                         <div class="checkbox mb-3">
                             <label th:text="#{home.signIn.stayLoggedIn}">
                                 <input type="checkbox" value="stay-logged-in" > Stay logged in

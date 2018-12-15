@@ -28,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("user2").password(passwordEncoder().encode("12345")).roles("USER")
                 .and()
+                .withUser("user@user.user").password(passwordEncoder().encode("user")).roles("USER")
+                .and()
                 .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
     }
 
@@ -39,6 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/Login*").anonymous()
                 .and().authorizeRequests().antMatchers("/Checkout").authenticated()
                 .and().formLogin()
+                .and()
+                .formLogin().loginPage("/").loginProcessingUrl("/Login").usernameParameter("email").passwordParameter("password").permitAll()
                 .defaultSuccessUrl("/")
                 .failureUrl("/?error=true")
                 .failureHandler(authenticationFailureHandler())
