@@ -5,13 +5,13 @@ function appendCheckout(item)
     str= ' <li class="list-group-item d-flex justify-content-between lh-condensed">\n' +
         '                            <div>\n' +
         '                                <h6 class="my-0">'+pizza.pizzaName+ '<span title="jöhet ide dinamikusan akár hogy hány centi a pizza"> '+pizza.pizzaSize+' </span></h6>\n' +
-        '                                <small class="text-muted">Tele van sajttal baszod mit nem értesz vegyél mást is te zsidó</small>\n' +
         '                            </div>\n' +
         '                            <span class="text-muted">'+pizza.price+'</span>\n' +
         '        </li>';
     $("#cart").append(str
 
     );
+
 }
 function appendPrice(items)
 {
@@ -22,6 +22,7 @@ function appendPrice(items)
     $("#cart").append(str
 
     );
+    $('#darab').text(items.length);
 }
 $(function () {
     var json_str = getCookie('items');
